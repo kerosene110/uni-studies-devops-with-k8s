@@ -3,12 +3,10 @@ kind: Service
 metadata:
   name: todo-app-svc
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: todo-app # This is the app as declared in the deployment.
   ports:
-    - name: http
-      nodePort: 30088 # This is the port that is available outside. Value for nodePort can be between 30000-32767
+    - port: 80
       protocol: TCP
-      port: 1234 # This is a port that is available to the cluster, in this case it can be ~ anything
       targetPort: 8000 # This is the target port, the same env var $PORT in Dockerfile, now that it is not overriden by envvar.yaml

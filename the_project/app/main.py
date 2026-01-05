@@ -15,6 +15,5 @@ async def announce_startup() -> None:
 
 
 @app.get("/")
-async def root() -> dict[str, str]:
-    # Return hello world html page
-    return {"message": "Hello, World!"}
+async def root() -> str:
+    return "Todo app is running with Ingress"
