@@ -37,11 +37,18 @@ kubectl apply -f ./manifests/ingress.yaml
 ## Exercise 1.10 Output
 
 ```
-$ kubectl logs log-output-dep-747cbb96-w7jsm 
-2026-01-04T18:59:17.898Z: xpvxy144lq
-2026-01-04T18:59:22.898Z: xpvxy144lq
+$ kubectl logs log-output-dep-79bd7b86f7-5rcj8 
+Defaulted container "log-generator" out of: log-generator, log-reader
+2026-01-24T14:49:41.927Z: 1s7td4q0x0
 
 $ curl localhost:8081/status
-"2026-01-04T20:11:59.986Z: fzzmj8ycrn"
+"OK"
 
+$ curl localhost:8081/
+2026-01-24T14:49:41.927Z: 1s7td4q0x0
+2026-01-24T14:49:46.928Z: 1s7td4q0x0
+2026-01-24T14:49:51.931Z: 1s7td4q0x0
+2026-01-24T14:49:56.932Z: 1s7td4q0x0
+2026-01-24T14:50:01.932Z: 1s7td4q0x0
+2026-01-24T14:50:06.933Z: 1s7td4q0x0
 ```
