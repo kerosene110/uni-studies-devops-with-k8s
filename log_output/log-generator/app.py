@@ -8,6 +8,7 @@ app = FastAPI(title="log-output")
 
 ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz"
 RANDOM_STR = "".join(random.choice(ALPHABET) for _ in range(10))
+OUTPUT_PATH = "/usr/src/app/files/output.txt"
 
 def get_timestamp():
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace(
@@ -21,7 +22,8 @@ def get_log_line(random_str=RANDOM_STR):
 async def log_loop():
     while True:
         app.state.log_line = get_log_line()
-        print(app.state.log_line, flush=True)
+        with open(OUTPUT_PATH, "a", encoding="utf-8") as output_file:
+            output_file.write(f"{app.state.log_line}\n")
         await asyncio.sleep(5)
 
 
