@@ -1,7 +1,17 @@
 # Log output app
 
-## Exercise 1.7. External access with Ingress
+## Exercise 1.10 Even more services 
 
+### Instructions
+
+```
+Split the "Log output" application into two different containers within a single pod:
+
+One generates a random string on startup and writes a line with the random string and timestamp every 5 seconds into a file.
+The other reads that file and provides the content in the HTTP GET endpoint for the user to see
+```
+
+### Solution
 
 Clean up the old cluster:
 
@@ -13,14 +23,18 @@ k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 How to deploy:
 
 ```
-docker build -t log-output:latest . # Use local image
-k3d image import log-output:latest
+# Build images locally
+docker build -f log-generator/Dockerfile -t log-generator log-generator 
+docker build -f log-reader/Dockerfile -t log-reader log-reader
+k3d image import log-generator:latest
+k3d image import log-reader:latest
+
 kubectl apply -f ./manifests/deployment.yaml
 kubectl apply -f ./manifests/service.yaml
 kubectl apply -f ./manifests/ingress.yaml
 ```
 
-## Exercise 1.7 Output
+## Exercise 1.10 Output
 
 ```
 $ kubectl logs log-output-dep-747cbb96-w7jsm 
